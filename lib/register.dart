@@ -31,28 +31,6 @@ class _RegisterViewState extends State<RegisterView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  icon: Icon(Icons.info),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Examen 2"),
-                          content: Text("Suerte en el examen"),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text("Cerrar"),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                ),
                 Text(
                   'Registro',
                   style: TextStyle(
@@ -67,7 +45,7 @@ class _RegisterViewState extends State<RegisterView> {
                   width: size.width * 0.5,
                   padding: const EdgeInsets.only(left: 30),
                   child: Text(
-                    'Usuario:',
+                    'Nombre de usuario',
                     style: TextStyle(
                       color: Colors.white,
                     ),

@@ -48,28 +48,6 @@ class _LoginViewState extends State<LoginView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  icon: Icon(Icons.info),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Examen 2"),
-                          content: Text("Suerte en el examen"),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text("Cerrar"),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                ),
                 Text(
                   'Iniciar Sesión',
                   style: TextStyle(

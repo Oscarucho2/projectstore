@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projectstore/login.dart'; // Importa la pantalla de inicio de sesión
-import 'package:projectstore/register.dart'; // Importa la pantalla de registro
+import 'package:projectstore/login.dart'; 
+import 'package:projectstore/register.dart';
 
 
 class HomeView extends StatelessWidget {
