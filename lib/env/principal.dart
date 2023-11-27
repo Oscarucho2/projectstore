@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projectstore/home.dart';
+import 'package:projectstore/env/categories.dart';
 
 class PrincipalView extends StatelessWidget {
   const PrincipalView({Key? key}) : super(key: key);
@@ -155,9 +157,18 @@ class PrincipalView extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           if (buttonText == 'Salir') {
-            // Agrega la lógica para salir o cerrar sesión
-            // Puedes utilizar Navigator.pop(context) para volver a la pantalla anterior
-          } else {
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeView()),
+                  );
+          } 
+          if (buttonText == 'Categorías') {
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CategoriesView()),
+                  );
+          }
+          else {
             // Agrega la lógica para otras opciones del menú
           }
         },
