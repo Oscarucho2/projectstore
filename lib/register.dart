@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectstore/home.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -8,159 +9,118 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  TextEditingController user = TextEditingController();
-  TextEditingController pass = TextEditingController();
-  bool validateUser = false;
-  bool validatePass = false;
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
-      backgroundColor: Color(0xff0B3F55),
-      body: Center(
-        child: Container(
-          width: size.width * 0.6,
-          padding: EdgeInsets.all(size.width * 0.01),
-          decoration: BoxDecoration(
-            color: Color(0xff07232F),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Registro',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 25),
-                Container(
-                  height: size.height * 0.05,
-                  width: size.width * 0.5,
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Text(
-                    'Nombre de usuario',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Container(
-                  height: size.height * 0.1,
-                  width: size.width * 0.5,
-                  padding: const EdgeInsets.only(left: 30),
-                  child: TextFormField(
-                    controller: user,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(7),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                          color: Color.fromARGB(0, 0, 0, 0),
-                        ),
-                      ),
-                      errorText: validateUser ? 'Debe escribir su usuario' : null,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(10),
-                      hintText: 'Usuario',
-                    ),
-                    onChanged: (dato) {
-                      setState(() {
-                        validateUser = dato.trim().isEmpty;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(height: 25),
-                Container(
-                  height: size.height * 0.05,
-                  width: size.width * 0.5,
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Text(
-                    'Contraseña:',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Container(
-                  height: size.height * 0.1,
-                  width: size.width * 0.5,
-                  padding: const EdgeInsets.only(left: 30),
-                  child: TextFormField(
-                    controller: pass,
-                    obscureText: true,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 0.00001,
-                          style: BorderStyle.solid,
-                          color: Color(0xffffffff),
-                        ),
-                      ),
-                      hintText: 'Contraseña',
-                      errorText: validatePass ? 'Debe escribir su contraseña' : null,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(10),
-                      prefixIcon: const Icon(
-                        Icons.lock,
-                        size: 40,
-                      ),
-                    ),
-                    onChanged: (dato) {
-                      setState(() {
-                        validatePass = dato.trim().isEmpty;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(height: 25),
-                ElevatedButton(
-                  onPressed: () {
-                    // Implementa la lógica de registro aquí
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    fixedSize: Size(size.width * 0.3, 45),
-                    primary: Color(0xffC6D300),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(width: 15),
-                      Text(
-                        'Registrarse',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+      backgroundColor: Color(0x0000),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Título
+          Text(
+            'Regístrate',
+            style: TextStyle(
+              fontSize: 24, // Ajusta el tamaño del título según sea necesario
+              fontWeight: FontWeight.bold,
             ),
+          ),
+          const SizedBox(height: 16),
+
+          // Imagen centrada
+          Center(
+            child: Image.asset(
+              "/img/login.jpg", // Ruta de tu imagen de registro
+              width: 180, // Ajusta el ancho de la imagen según sea necesario
+              height: 180, // Ajusta la altura de la imagen según sea necesario
+            ),
+            
+          ),
+                 Text(
+              'Mi Tiendita',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          const SizedBox(height: 32),
+
+          // Inputs de registro
+          buildInputWithIcon(Icons.email, 'Correo Electrónico'),
+          const SizedBox(height: 16),
+          buildInputWithIcon(Icons.person, 'Nombre de Usuario'),
+          const SizedBox(height: 16),
+          buildInputWithIcon(Icons.lock, 'Contraseña'),
+
+          const SizedBox(height: 16),
+
+          // Texto "¿Ya tienes cuenta?"
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("¿Ya tienes cuenta? "),
+              InkWell(
+                onTap: () {
+                  // Navega a la pantalla de inicio de sesión cuando se presiona el enlace
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeView()),
+                  );
+                },
+                child: Text(
+                  'Inicia Sesión',
+                  style: TextStyle(color: Colors.orange),
+                ),
+              ),
+            ],
+          ),
+           const SizedBox(height: 16),
+             ElevatedButton(
+              onPressed: () {
+                // Navega a la pantalla de inicio de sesión cuando se presiona el botón
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeView()),
+                );
+              },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all(Size.square(40)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Ajusta el radio de los bordes según lo necesario
+                  ),
+                ),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Color(0xFF5EC401)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.login,
+                      color: Colors
+                          .white), // Puedes cambiar el icono según tus necesidades
+                  const SizedBox(width: 8), // Espacio entre el ícono y el texto
+                  const Text('Registrarme',
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildInputWithIcon(IconData icon, String hintText) {
+    return Container(
+      width: 300, // Ajusta el ancho del contenedor según sea necesario
+      child: TextField(
+        decoration: InputDecoration(
+          prefixIcon: Icon(icon),
+          hintText: hintText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
           ),
         ),
       ),
