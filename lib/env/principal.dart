@@ -1,28 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:projectstore/home.dart';
 import 'package:projectstore/env/categories.dart';
+import 'package:projectstore/env/car.dart';
+import 'package:projectstore/env/map.dart';
 
 class PrincipalView extends StatelessWidget {
-  const PrincipalView({Key? key}) : super(key: key);
+  final String user;
+
+  const PrincipalView({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0x0000),
+      backgroundColor: const Color(0x00000000),
       appBar: AppBar(
-        backgroundColor: Colors.transparent, // Fondo transparente
-        elevation: 0, // Sin sombra
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
               icon: const Icon(Icons.menu),
               onPressed: () {
-                Scaffold.of(context)
-                    .openDrawer(); // Abre el Drawer (menú lateral)
+                Scaffold.of(context).openDrawer();
               },
             );
           },
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CarView()),
+              );
+            },
+          ),
+        ],
       ),
       drawer: Drawer(
         // Contenido del menú lateral
@@ -32,50 +46,57 @@ class PrincipalView extends StatelessWidget {
             UserAccountsDrawerHeader(
               accountName: Row(
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     child: Icon(Icons.account_circle,
                         color: Colors.black), // Ícono de usuario
                   ),
                   const SizedBox(width: 8), // Espacio entre el ícono y el texto
                   Text(
-                    'Mi usuario',
-                    style: TextStyle(color: Colors.black),
+                    user,
+                    style: const TextStyle(color: Colors.black),
                   ),
                 ],
               ),
               accountEmail:
                   null, // Puedes agregar el correo aquí si es necesario
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
               ),
             ),
             ListTile(
-              leading: Icon(Icons.edit), // Ícono de editar perfil
-              title: Text('Editar perfil'),
+              leading: const Icon(Icons.edit), // Ícono de editar perfil
+              title: const Text('Editar perfil'),
               onTap: () {
                 // Agrega la lógica para la opción 'Editar perfil'
                 Navigator.pop(context); // Cierra el Drawer
               },
             ),
             ListTile(
-              leading: Icon(Icons.location_on), // Ícono de ubicaciones
-              title: Text('Mis ubicaciones'),
+              leading: const Icon(Icons.location_on), // Ícono de ubicaciones
+              title: const Text('Mis ubicaciones'),
               onTap: () {
                 // Agrega la lógica para la opción 'Mis ubicaciones'
                 Navigator.pop(context); // Cierra el Drawer
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          Mapa()), // Reemplaza MapView con el nombre de tu pantalla de mapa
+                );
               },
             ),
             ListTile(
-              leading: Icon(Icons.shopping_cart), // Ícono de carrito
-              title: Text('Mis pedidos'),
+              leading: const Icon(Icons.shopping_cart), // Ícono de carrito
+              title: const Text('Mis pedidos'),
               onTap: () {
                 // Agrega la lógica para la opción 'Mis pedidos'
                 Navigator.pop(context); // Cierra el Drawer
               },
             ),
             ListTile(
-              leading: Icon(Icons.logout), // Ícono de cerrar sesión
-              title: Text('Cerrar sesión'),
+              leading: const Icon(Icons.logout), // Ícono de cerrar sesión
+              title: const Text('Cerrar sesión'),
               onTap: () {
                 // Agrega la lógica para la opción 'Cerrar sesión'
                 Navigator.pop(context); // Cierra el Drawer
@@ -92,8 +113,8 @@ class PrincipalView extends StatelessWidget {
           // Título e Imagen centrada
           Column(
             children: [
-              Text(
-                'Bienvenido',
+              const Text(
+                'Bienvenid@',
                 style: TextStyle(
                   fontSize:
                       30, // Ajusta el tamaño del título según sea necesario
@@ -117,7 +138,7 @@ class PrincipalView extends StatelessWidget {
           const SizedBox(height: 32),
 
           // Texto "Menú"
-          Text(
+          const Text(
             'Menú',
             style: TextStyle(
               fontSize: 20, // Ajusta el tamaño según sea necesario
@@ -127,7 +148,7 @@ class PrincipalView extends StatelessWidget {
           const SizedBox(height: 8),
 
           // Subtexto
-          Text(
+          const Text(
             'Selecciona la opción que desees:',
             style:
                 TextStyle(fontSize: 14), // Ajusta el tamaño según sea necesario
@@ -140,12 +161,6 @@ class PrincipalView extends StatelessWidget {
           buildMenuButton(context, 'Compras'),
           const SizedBox(height: 10),
           buildMenuButton(context, 'Mis pedidos'),
-          const SizedBox(height: 10),
-          buildMenuButton(context, 'Mi carrito'),
-          const SizedBox(height: 10),
-          buildMenuButton(context, 'Cuenta'),
-          const SizedBox(height: 10),
-          buildMenuButton(context, 'Salir'),
         ],
       ),
     );
@@ -157,29 +172,28 @@ class PrincipalView extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           if (buttonText == 'Salir') {
-              Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomeView()),
-                  );
-          } 
-          if (buttonText == 'Categorías') {
-              Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const CategoriesView()),
-                  );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeView()),
+            );
           }
-          else {
+          if (buttonText == 'Categorías') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CategoriesView()),
+            );
+          } else {
             // Agrega la lógica para otras opciones del menú
           }
         },
         child: Text(
           buttonText,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.white), // Cambia el color del texto a blanco
         ),
         style: ElevatedButton.styleFrom(
-          primary:
-              Color(0xFF5EC401), // Cambia el color de fondo según sea necesario
+          primary: const Color(
+              0xFF5EC401), // Cambia el color de fondo según sea necesario
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),

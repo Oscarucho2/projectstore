@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "408918149271",
+    "project_id": "mitienda-36ae8",
+    "storage_bucket": "mitienda-36ae8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408918149271:android:bc6b36b165eed3512001d2",
+        "android_client_info": {
+          "package_name": "com.oscarucho2.projectstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_Kb-YHNtFVWc8Ode09kpe5emanSzTX2Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

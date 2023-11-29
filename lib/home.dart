@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:projectstore/env/principal.dart';
 import 'package:projectstore/register.dart';
+import 'package:projectstore/services/firebase_service.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  TextEditingController userController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0x0000),
+      backgroundColor: const Color(0x00000000),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 16),
-            Text(
+            const Text(
               'Ingresa o Regístrate',
               style: TextStyle(
                 fontSize: 24,
@@ -23,20 +31,20 @@ class HomeView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text(
+            const Text(
               'Ingresa con tu correo registrado o número de teléfono',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey,
               ),
             ),
-             const SizedBox(height: 18),
+            const SizedBox(height: 18),
             Image.asset(
               "/img/login.jpg", // Ajusta la ruta de la imagen según tu proyecto
               width: 180,
               height: 180,
             ),
-             Text(
+            const Text(
               'Mi Tiendita',
               style: TextStyle(
                 fontSize: 24,
@@ -45,18 +53,19 @@ class HomeView extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 16),
+              margin: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(16),
-                    margin: EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.all(16),
+                    margin: const EdgeInsets.only(bottom: 16),
                     decoration: BoxDecoration(
                       color: Colors.grey[200], // Color gris de fondo
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: userController,
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.person), // Ícono para el usuario
                         hintText: 'Usuario',
                         border: OutlineInputBorder(),
@@ -64,14 +73,15 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.grey[200], // Color gris de fondo
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
+                      controller: passwordController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         prefixIcon:
                             Icon(Icons.lock), // Ícono para la contraseña
                         hintText: 'Contraseña',
@@ -85,14 +95,13 @@ class HomeView extends StatelessWidget {
             const SizedBox(height: 16),
             TextButton(
               onPressed: () {
-                // Navega a la pantalla de registro cuando se presiona el botón
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const RegisterView()),
                 );
               },
               child: RichText(
-                text: TextSpan(
+                text: const TextSpan(
                   text: '¿No tienes cuenta? ',
                   style: TextStyle(
                     color: Colors.grey,
@@ -111,15 +120,42 @@ class HomeView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                // Navega a la pantalla de inicio de sesión cuando se presiona el botón
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const PrincipalView()),
-                );
+              onPressed: () async {
+                String username = userController.text;
+                String password = passwordController.text;
+
+                bool credentialsMatch = await FirebaseService()
+                    .areCredentialsValid(username, password);
+
+                if (credentialsMatch) {
+                  // Usuario y contraseña coinciden
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PrincipalView(user: username)),
+                  );
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Error"),
+                        content: const Text("Usuario o contraseña incorrecto"),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text("Cerrar"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
               },
               style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size.square(40)),
+                minimumSize: MaterialStateProperty.all(const Size.square(40)),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
@@ -127,17 +163,16 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
                 backgroundColor:
-                    MaterialStateProperty.all<Color>(Color(0xFF5EC401)),
+                    MaterialStateProperty.all<Color>(const Color(0xFF5EC401)),
               ),
-              child: Row(
+              child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.login,
                       color: Colors
                           .white), // Puedes cambiar el icono según tus necesidades
-                  const SizedBox(width: 8), // Espacio entre el ícono y el texto
-                  const Text('Iniciar Sesión',
-                      style: TextStyle(color: Colors.white)),
+                  SizedBox(width: 8), // Espacio entre el ícono y el texto
+                  Text('Iniciar Sesión', style: TextStyle(color: Colors.white)),
                 ],
               ),
             ),
