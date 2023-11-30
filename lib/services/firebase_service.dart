@@ -25,8 +25,6 @@ Future<bool> areCredentialsValid(String username, String password) async {
 
     bool credentialsMatch = allUsers.any((user) =>
         user['username'] == username && user['password'] == password);
-
-    print(credentialsMatch);
     return credentialsMatch;
   } catch (error) {
     print("Error al validar credenciales: $error");

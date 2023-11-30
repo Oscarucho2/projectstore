@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectstore/env/next_categories.dart';
 
 class CategoriesView extends StatelessWidget {
   const CategoriesView({Key? key}) : super(key: key);
@@ -29,12 +30,22 @@ class CategoriesView extends StatelessWidget {
               ),
               itemCount: categories.length,
               itemBuilder: (context, index) {
-                return CategoryButton(
-                  imageUrl: categories[index]['imageUrl'] ?? '',
-                  categoryName: categories[index]['name'] ?? '',
-                  onPressed: () {
-                    // Lógica de navegación
+                return InkWell(
+                  onTap: () {
+                    // Lógica de navegación cuando se hace clic en la categoría
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NextCategories(
+                          categoryName: categories[index]['name'] ?? '',
+                        ),
+                      ),
+                    );
                   },
+                  child: CategoryButton(
+                    imageUrl: categories[index]['imageUrl'] ?? '',
+                    categoryName: categories[index]['name'] ?? '',
+                  ),
                 );
               },
             ),
@@ -46,31 +57,31 @@ class CategoriesView extends StatelessWidget {
 }
 
 class CategoryButton extends StatelessWidget {
-  final String imageUrl;
+ final String imageUrl;
   final String categoryName;
-  final VoidCallback onPressed;
 
   const CategoryButton({
     Key? key,
     required this.imageUrl,
     required this.categoryName,
-    required this.onPressed,
   }) : super(key: key);
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
+      onTap: () {
+        // Lógica opcional
+      },
       child: Card(
-        color: Colors.white, // Cambiado a blanco
+        color: Colors.white,
         elevation: 4.0,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.network(
               imageUrl,
-              height: 160, // Ajustado a una altura más pequeña
-              width: 160, // Ajustado a una anchura más pequeña
+              height: 160,
+              width: 160,
               fit: BoxFit.cover,
             ),
             const SizedBox(height: 8.0),
@@ -80,6 +91,7 @@ class CategoryButton extends StatelessWidget {
       ),
     );
   }
+
 }
 
 final List<Map<String, String>> categories = [
