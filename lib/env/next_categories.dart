@@ -1,16 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:projectstore/services/firebase_service.dart';
 
 class NextCategories extends StatelessWidget {
   final String categoryName;
 
-  NextCategories({required this.categoryName});
+  const NextCategories({Key? key, required this.categoryName}) : super(key: key);
 
-  // Función para cargar productos de la categoría desde la base de datos
   Future<List<Map<String, dynamic>>> loadProducts() async {
-    // Aquí debes implementar la lógica para cargar productos desde la base de datos
-    // Puedes usar Firebase, SQLite u otro sistema de base de datos según tu aplicación
-    // Retorna una lista de productos, donde cada producto es un mapa de datos
-    return [];
+    // Llama al método para obtener los productos de la categoría actual
+    
+    return FirebaseService().getProductosPorCategoria(changeName(categoryName));
+  }
+
+  String changeName(String name)
+  {
+    String nameChange = '';
+    switch (name){
+      case 'Frutas y Verduras':
+        nameChange = 'frutas_verduras';
+      break;
+        case 'Bebidas':
+        nameChange = 'bebidas';
+      break;
+        case 'Botanas':
+        nameChange = 'botanas';
+      break;
+        case 'Cremería':
+        nameChange = 'cremeria';
+      break;
+        case 'Carnes':
+        nameChange = 'carnes';
+      break;
+       case 'Mascotas':
+        nameChange = 'mascotas';
+      break;
+    }
+  
+
+    return nameChange;
   }
 
   @override
@@ -23,11 +50,11 @@ class NextCategories extends StatelessWidget {
         future: loadProducts(),
         builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No hay productos disponibles'));
+            return const Center(child: Text('No hay productos disponibles'));
           } else {
             // Aquí puedes construir tu interfaz de usuario con la lista de productos
             return ListView.builder(
@@ -37,8 +64,8 @@ class NextCategories extends StatelessWidget {
                 // Construye un widget de tarjeta para cada producto
                 return Card(
                   child: ListTile(
-                    title: Text(product['productName'] ?? ''),
-                    subtitle: Text('Precio: \$${product['price']}'),
+                    title: Text(product['nombre'] ?? ''),
+                    subtitle: Text('Precio: \$${product['precio']}'),
                     // Otros detalles del producto
                   ),
                 );
@@ -50,3 +77,4 @@ class NextCategories extends StatelessWidget {
     );
   }
 }
+

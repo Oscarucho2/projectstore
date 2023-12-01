@@ -32,7 +32,6 @@ class CategoriesView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    // Lógica de navegación cuando se hace clic en la categoría
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -57,7 +56,7 @@ class CategoriesView extends StatelessWidget {
 }
 
 class CategoryButton extends StatelessWidget {
- final String imageUrl;
+  final String imageUrl;
   final String categoryName;
 
   const CategoryButton({
@@ -66,11 +65,19 @@ class CategoryButton extends StatelessWidget {
     required this.categoryName,
   }) : super(key: key);
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Lógica opcional
+        // Lógica de navegación cuando se hace clic en la categoría
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NextCategories(
+              categoryName: categoryName,
+            ),
+          ),
+        );
       },
       child: Card(
         color: Colors.white,
@@ -91,7 +98,6 @@ class CategoryButton extends StatelessWidget {
       ),
     );
   }
-
 }
 
 final List<Map<String, String>> categories = [
