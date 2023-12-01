@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectstore/services/firebase_service.dart';
+import 'package:projectstore/env/details.dart';
 
 class NextCategories extends StatelessWidget {
   final String categoryName;
@@ -47,33 +48,44 @@ class NextCategories extends StatelessWidget {
         title: Text(categoryName),
       ),
       body: FutureBuilder(
-        future: loadProducts(),
-        builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No hay productos disponibles'));
-          } else {
-            // Aquí puedes construir tu interfaz de usuario con la lista de productos
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final product = snapshot.data![index];
-                // Construye un widget de tarjeta para cada producto
-                return Card(
-                  child: ListTile(
-                    title: Text(product['nombre'] ?? ''),
-                    subtitle: Text('Precio: \$${product['precio']}'),
-                    // Otros detalles del producto
-                  ),
-                );
-              },
-            );
-          }
+  future: loadProducts(),
+  builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Center(child: CircularProgressIndicator());
+    } else if (snapshot.hasError) {
+      return Center(child: Text('Error: ${snapshot.error}'));
+    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+      return const Center(child: Text('No hay productos disponibles'));
+    } else {
+      // Aquí puedes construir tu interfaz de usuario con la lista de productos
+      return ListView.builder(
+        itemCount: snapshot.data!.length,
+        itemBuilder: (context, index) {
+          final product = snapshot.data![index];
+
+          return InkWell(
+            onTap: () {
+              // Al hacer clic en un producto, navega a la vista de detalles
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsView(productDetails: product),
+                ),
+              );
+            },
+            child: Card(
+              child: ListTile(
+                title: Text(product['nombre'] ?? ''),
+                subtitle: Text('Precio: \$${product['precio']}'),
+                // Otros detalles del producto
+              ),
+            ),
+          );
         },
-      ),
+      );
+    }
+  },
+)
     );
   }
 }

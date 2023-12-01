@@ -75,7 +75,6 @@ class PrincipalView extends StatelessWidget {
               leading: const Icon(Icons.location_on), // Ícono de ubicaciones
               title: const Text('Mis ubicaciones'),
               onTap: () {
-                // Agrega la lógica para la opción 'Mis ubicaciones'
                 Navigator.pop(context); // Cierra el Drawer
 
                 Navigator.push(
