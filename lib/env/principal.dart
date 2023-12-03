@@ -86,19 +86,13 @@ class PrincipalView extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.shopping_cart), // Ícono de carrito
-              title: const Text('Mis pedidos'),
-              onTap: () {
-                // Agrega la lógica para la opción 'Mis pedidos'
-                Navigator.pop(context); // Cierra el Drawer
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.logout), // Ícono de cerrar sesión
               title: const Text('Cerrar sesión'),
               onTap: () {
-                // Agrega la lógica para la opción 'Cerrar sesión'
-                Navigator.pop(context); // Cierra el Drawer
+                      Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeView()),
+            );
               },
             ),
             // Agrega otras opciones del menú según sea necesario
@@ -157,8 +151,6 @@ class PrincipalView extends StatelessWidget {
           // Botones
           buildMenuButton(context, 'Categorías'),
           const SizedBox(height: 10),
-          buildMenuButton(context, 'Compras'),
-          const SizedBox(height: 10),
           buildMenuButton(context, 'Mis pedidos'),
         ],
       ),
@@ -182,7 +174,10 @@ class PrincipalView extends StatelessWidget {
               MaterialPageRoute(builder: (context) => const CategoriesView()),
             );
           } else {
-            // Agrega la lógica para otras opciones del menú
+                  Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CarView()),
+              );
           }
         },
         child: Text(

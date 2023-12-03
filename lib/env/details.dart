@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DetailsView extends StatelessWidget {
   final Map<String, dynamic> productDetails;
@@ -56,17 +57,19 @@ class DetailsView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Botón "Agregar a la cesta"
             ElevatedButton.icon(
-              onPressed: () {
-                // Agrega la lógica para añadir a la cesta
-                // Puedes utilizar un método o función para manejar esto
+              onPressed: () async {
+                // Añadir a la cesta
+                await addToCart(productDetails, context);
               },
-              icon: const Icon(Icons.shopping_cart, color: Colors.white,),
+              icon: const Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
               label: const Text(
-                            'Añadir a la cesta',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                'Añadir a la cesta',
+                style: TextStyle(color: Colors.white),
+              ),
               style: ElevatedButton.styleFrom(
                 primary: const Color(0xFF5EC401),
               ),
@@ -75,5 +78,37 @@ class DetailsView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> addToCart(
+      Map<String, dynamic> productDetails, BuildContext context) async {
+    try {
+      // Obtén una referencia a la colección 'car'
+      final CollectionReference cartCollection =
+          FirebaseFirestore.instance.collection('car');
+
+      // Obtiene el ID del usuario actual (puedes cambiar esto según tu autenticación)
+      final String userId =
+          'user123'; // Aquí debes colocar la lógica para obtener el ID del usuario actual
+
+      // Añade la información a la colección 'car'
+      await cartCollection.add({
+        'userId': userId,
+        'product': productDetails['nombre'],
+        'price': productDetails['precio'],
+        // Agrega otros campos según sea necesario
+      });
+
+      // Muestra un mensaje de éxito
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Producto añadido a la cesta')),
+      );
+    } catch (e) {
+      // Manejo de errores
+      print('Error al añadir a la cesta: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error al añadir a la cesta')),
+      );
+    }
   }
 }
