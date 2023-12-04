@@ -22,8 +22,7 @@ class _CategoriesViewState extends State<CategoriesView> {
     String query = _searchController.text.toLowerCase();
     setState(() {
       filteredCategories = categories
-          .where((category) =>
-              category['name']!.toLowerCase().contains(query))
+          .where((category) => category['name']!.toLowerCase().contains(query))
           .toList();
     });
   }
@@ -40,20 +39,22 @@ class _CategoriesViewState extends State<CategoriesView> {
       appBar: AppBar(
         title: const Text('Categorías'),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: const InputDecoration(
-                labelText: 'Buscar',
-                border: OutlineInputBorder(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                controller: _searchController,
+                decoration: const InputDecoration(
+                  labelText: 'Buscar',
+                  border: OutlineInputBorder(),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: GridView.builder(
+            GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 8.0,
@@ -79,8 +80,8 @@ class _CategoriesViewState extends State<CategoriesView> {
                 );
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
