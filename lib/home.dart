@@ -13,169 +13,169 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              'Ingresa o Regístrate',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 50),
+              const Text(
+                'Ingresa o Regístrate',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Ingresa con tu usuario registrado',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
+              const SizedBox(height: 8),
+              const Text(
+                'Ingresa con tu usuario registrado',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
               ),
-            ),
-            const SizedBox(height: 18),
-            Image.asset(
-              "assets/img/login.jpg",
-              width: 150,
-              height: 150,
-            ),
-            const Text(
-              'Mi Tiendita',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+              const SizedBox(height: 18),
+              Image.asset(
+                "assets/img/login.jpg",
+                width: 150,
+                height: 150,
               ),
-            ),
-            const SizedBox(height: 32),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    margin: const EdgeInsets.only(bottom: 16),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextField(
-                      controller: userController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.person), 
-                        hintText: 'Usuario',
-                        border: OutlineInputBorder(),
+              const Text(
+                'Mi Tiendita',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 32),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      margin: const EdgeInsets.only(bottom: 16),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextField(
+                        controller: userController,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.person),
+                          hintText: 'Usuario',
+                          border: OutlineInputBorder(),
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200], 
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        prefixIcon:
-                            Icon(Icons.lock), 
-                        hintText: 'Contraseña',
-                        border: OutlineInputBorder(),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const RegisterView()),
-                );
-              },
-              child: RichText(
-                text: const TextSpan(
-                  text: '¿No tienes cuenta? ',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Regístrate',
-                      style: TextStyle(
-                        color: Colors.orange,
-                        fontWeight: FontWeight.bold,
+                      child: TextField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.lock),
+                          hintText: 'Contraseña',
+                          border: OutlineInputBorder(),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                String username = userController.text;
-                String password = passwordController.text;
-
-                bool credentialsMatch = await FirebaseService()
-                    .areCredentialsValid(username, password);
-
-                if (credentialsMatch) {
-                  // Usuario y contraseña coinciden
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => PrincipalView(user: username)),
+                    MaterialPageRoute(builder: (context) => const RegisterView()),
                   );
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("Error"),
-                        content: const Text("Usuario o contraseña incorrecto"),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text("Cerrar"),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-              },
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(const Size.square(40)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        10.0), 
+                },
+                child: RichText(
+                  text: const TextSpan(
+                    text: '¿No tienes cuenta? ',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Regístrate',
+                        style: TextStyle(
+                          color: Colors.orange,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(const Color(0xFF5EC401)),
               ),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.login,
-                      color: Colors
-                          .white), 
-                  SizedBox(width: 8), 
-                  Text('Iniciar Sesión', style: TextStyle(color: Colors.white)),
-                ],
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () async {
+                  String username = userController.text;
+                  String password = passwordController.text;
+
+                  bool credentialsMatch = await FirebaseService()
+                      .areCredentialsValid(username, password);
+
+                  if (credentialsMatch) {
+                    // Usuario y contraseña coinciden
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PrincipalView(user: username)),
+                    );
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Error"),
+                          content: const Text("Usuario o contraseña incorrecto"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("Cerrar"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                },
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(const Size.square(40)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(const Color(0xFF5EC401)),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.login, color: Colors.white),
+                    SizedBox(width: 8),
+                    Text('Iniciar Sesión', style: TextStyle(color: Colors.white)),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

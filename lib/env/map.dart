@@ -16,7 +16,7 @@ class _MapaState extends State<Mapa> {
   final Set<Polyline> polyLines = {};
   static const LatLng sourceLocation =
       LatLng(22.135035, -101.017399);
-      
+
   double lat = 0.0;
   double lng = 0.0;
 
@@ -39,37 +39,41 @@ class _MapaState extends State<Mapa> {
       appBar: AppBar(
         title: const Text('Mi Tiendita'),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: GoogleMap(
-              onMapCreated: _onMapCreated,
-              polylines: polyLines,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
-              markers: {
-                const Marker(
-                  markerId: MarkerId("Mi Tiendita"),
-                  position: sourceLocation,
-                  infoWindow: InfoWindow(title: "La garita"),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 500,
+              child: GoogleMap(
+                onMapCreated: _onMapCreated,
+                polylines: polyLines,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                markers: {
+                  Marker(
+                    markerId: MarkerId("Mi Tiendita"),
+                    position: sourceLocation,
+                    infoWindow: InfoWindow(title: "La garita"),
+                    icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+                  ),
+                },
+                initialCameraPosition: CameraPosition(
+                  target: _center,
+                  zoom: 11.0,
                 ),
-              },
-              initialCameraPosition: CameraPosition(
-                target: _center,
-                zoom: 11.0,
+                onCameraMove: (CameraPosition position) {
+                  try {
+                    lat = position.target.latitude;
+                    lng = position.target.longitude;
+                  } catch (e) {
+                    print('Get Service _createMarker: ' + e.toString());
+                  }
+                  setState(() {});
+                },
               ),
-              onCameraMove: (CameraPosition position) {
-                try {
-                  lat = position.target.latitude;
-                  lng = position.target.longitude;
-                } catch (e) {
-                  print('Get Service _createMarker: ' + e.toString());
-                }
-                setState(() {});
-              },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
