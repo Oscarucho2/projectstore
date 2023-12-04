@@ -17,16 +17,16 @@ class DetailsView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
+            // Imagen del producto
             Image.network(
               productDetails['imagen'] ?? '',
-              height: 400, 
-              width: double.infinity, 
+              height: 330,
+              width: double.infinity,
               fit: BoxFit.cover,
             ),
             const SizedBox(height: 16),
 
-            
+            // Nombre del producto
             Text(
               productDetails['nombre'] ?? '',
               style: const TextStyle(
@@ -37,7 +37,7 @@ class DetailsView extends StatelessWidget {
             ),
             const SizedBox(height: 8),
 
-            
+            // Precio del producto
             Text(
               'Precio: \$${productDetails['precio']}',
               style: const TextStyle(
@@ -47,7 +47,7 @@ class DetailsView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            
+            // Descripción del producto
             Text(
               '${productDetails['descripcion']}',
               style: const TextStyle(
@@ -59,7 +59,7 @@ class DetailsView extends StatelessWidget {
 
             ElevatedButton.icon(
               onPressed: () async {
-                
+                // Añadir a la cesta
                 await addToCart(productDetails, context);
               },
               icon: const Icon(
@@ -83,28 +83,17 @@ class DetailsView extends StatelessWidget {
   Future<void> addToCart(
       Map<String, dynamic> productDetails, BuildContext context) async {
     try {
-      
       final CollectionReference cartCollection =
           FirebaseFirestore.instance.collection('car');
-
-      
-      final String userId =
-          'user123'; 
-
-      
       await cartCollection.add({
-        'userId': userId,
         'product': productDetails['nombre'],
         'price': productDetails['precio'],
-        
       });
 
-      
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Producto añadido a la cesta')),
       );
     } catch (e) {
-      
       print('Error al añadir a la cesta: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Error al añadir a la cesta')),

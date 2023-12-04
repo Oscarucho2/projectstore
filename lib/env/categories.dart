@@ -1,8 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:projectstore/env/next_categories.dart';
 
-class CategoriesView extends StatelessWidget {
+class CategoriesView extends StatefulWidget {
   const CategoriesView({Key? key}) : super(key: key);
+
+  @override
+  _CategoriesViewState createState() => _CategoriesViewState();
+}
+
+class _CategoriesViewState extends State<CategoriesView> {
+  final TextEditingController _searchController = TextEditingController();
+  List<Map<String, String>> filteredCategories = List.from(categories);
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    String query = _searchController.text.toLowerCase();
+    setState(() {
+      filteredCategories = categories
+          .where((category) =>
+              category['name']!.toLowerCase().contains(query))
+          .toList();
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +42,11 @@ class CategoriesView extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(16.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: TextField(
-              decoration: InputDecoration(
+              controller: _searchController,
+              decoration: const InputDecoration(
                 labelText: 'Buscar',
                 border: OutlineInputBorder(),
               ),
@@ -28,7 +59,7 @@ class CategoriesView extends StatelessWidget {
                 mainAxisSpacing: 8.0,
                 crossAxisSpacing: 8.0,
               ),
-              itemCount: categories.length,
+              itemCount: filteredCategories.length,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
@@ -36,14 +67,14 @@ class CategoriesView extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => NextCategories(
-                          categoryName: categories[index]['name'] ?? '',
+                          categoryName: filteredCategories[index]['name'] ?? '',
                         ),
                       ),
                     );
                   },
                   child: CategoryButton(
-                    imageUrl: categories[index]['imageUrl'] ?? '',
-                    categoryName: categories[index]['name'] ?? '',
+                    imageUrl: filteredCategories[index]['imageUrl'] ?? '',
+                    categoryName: filteredCategories[index]['name'] ?? '',
                   ),
                 );
               },
@@ -69,7 +100,6 @@ class CategoryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -85,9 +115,9 @@ class CategoryButton extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
+            Image.asset(
               imageUrl,
-              height: 160,
+              height: 135,
               width: 160,
               fit: BoxFit.cover,
             ),
@@ -101,7 +131,7 @@ class CategoryButton extends StatelessWidget {
 }
 
 final List<Map<String, String>> categories = [
-  {'name': 'Frutas y Verduras', 'imageUrl': "assets/img/fyv.jpg"},
+  {'name': 'Frutas y Verduras', 'imageUrl': 'assets/img/fyv.jpg'},
   {'name': 'Cremería', 'imageUrl': 'assets/img/cremeria.jpg'},
   {'name': 'Bebidas', 'imageUrl': 'assets/img/bebidas.jpg'},
   {'name': 'Carnes', 'imageUrl': 'assets/img/carnes.jpg'},

@@ -16,13 +16,12 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0x00000000),
+      backgroundColor: const Color(0xFFFFFFFF),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 16),
             const Text(
               'Ingresa o Regístrate',
               style: TextStyle(
@@ -32,7 +31,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             const SizedBox(height: 8),
             const Text(
-              'Ingresa con tu correo registrado o número de teléfono',
+              'Ingresa con tu usuario registrado',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey,
@@ -40,9 +39,9 @@ class _HomeViewState extends State<HomeView> {
             ),
             const SizedBox(height: 18),
             Image.asset(
-              "/img/login.jpg",
-              width: 180,
-              height: 180,
+              "assets/img/login.jpg",
+              width: 150,
+              height: 150,
             ),
             const Text(
               'Mi Tiendita',
@@ -83,7 +82,7 @@ class _HomeViewState extends State<HomeView> {
                       obscureText: true,
                       decoration: const InputDecoration(
                         prefixIcon:
-                            Icon(Icons.lock),
+                            Icon(Icons.lock), 
                         hintText: 'Contraseña',
                         border: OutlineInputBorder(),
                       ),
@@ -128,7 +127,7 @@ class _HomeViewState extends State<HomeView> {
                     .areCredentialsValid(username, password);
 
                 if (credentialsMatch) {
-                 
+                  // Usuario y contraseña coinciden
                   Navigator.push(
                     context,
                     MaterialPageRoute(

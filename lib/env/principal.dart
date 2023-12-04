@@ -12,7 +12,7 @@ class PrincipalView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0x00000000),
+      backgroundColor: const Color(0xFFFFFFFF),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -32,14 +32,14 @@ class PrincipalView extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const CarView()),
+                MaterialPageRoute(builder: (context) => CarView()),
               );
             },
           ),
         ],
       ),
       drawer: Drawer(
-        
+        // Contenido del menú lateral
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -48,7 +48,7 @@ class PrincipalView extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     child: Icon(Icons.account_circle,
-                        color: Colors.black),
+                        color: Colors.black), 
                   ),
                   const SizedBox(width: 8),
                   Text(
@@ -58,30 +58,22 @@ class PrincipalView extends StatelessWidget {
                 ],
               ),
               accountEmail:
-                  null,
+                  null, 
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.edit),
-              title: const Text('Editar perfil'),
-              onTap: () {
-                
-                Navigator.pop(context); 
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.location_on), 
               title: const Text('Mis ubicaciones'),
               onTap: () {
-                Navigator.pop(context); 
+                Navigator.pop(context); // Cierra el Drawer
 
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          Mapa()), 
+                          Mapa()),
                 );
               },
             ),
@@ -95,7 +87,7 @@ class PrincipalView extends StatelessWidget {
             );
               },
             ),
-            
+  
           ],
         ),
       ),
@@ -103,44 +95,44 @@ class PrincipalView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          
+          // Título e Imagen centrada
           Column(
             children: [
               const Text(
                 'Bienvenid@',
                 style: TextStyle(
                   fontSize:
-                      30, 
+                      30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 16),
 
-              
+              // Imagen centrada
               Center(
                 child: Image.asset(
-                  "/img/login.jpg", 
+                  "assets/img/login.jpg",
                   width:
                       180, 
                   height:
-                      180,
+                      180, 
                 ),
               ),
             ],
           ),
           const SizedBox(height: 32),
 
-          
+          // Texto "Menú"
           const Text(
             'Menú',
             style: TextStyle(
-              fontSize: 20, 
+              fontSize: 20, // Ajusta el tamaño según sea necesario
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
 
-          
+          // Subtexto
           const Text(
             'Selecciona la opción que desees:',
             style:
@@ -148,7 +140,7 @@ class PrincipalView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          
+          // Botones
           buildMenuButton(context, 'Categorías'),
           const SizedBox(height: 10),
           buildMenuButton(context, 'Mis pedidos'),
@@ -159,7 +151,7 @@ class PrincipalView extends StatelessWidget {
 
   Widget buildMenuButton(BuildContext context, String buttonText) {
     return Container(
-      width: 200,
+      width: 200, 
       child: ElevatedButton(
         onPressed: () {
           if (buttonText == 'Salir') {
@@ -176,14 +168,14 @@ class PrincipalView extends StatelessWidget {
           } else {
                   Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const CarView()),
+                MaterialPageRoute(builder: (context) => CarView()),
               );
           }
         },
         child: Text(
           buttonText,
           style: const TextStyle(
-              color: Colors.white),
+              color: Colors.white), 
         ),
         style: ElevatedButton.styleFrom(
           primary: const Color(

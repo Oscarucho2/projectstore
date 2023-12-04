@@ -17,6 +17,40 @@ class FirebaseService {
     });
   }
 
+  
+  Future<List<Map<String, dynamic>>> getShoppingCartItems() async {
+    try {
+      QuerySnapshot cartSnapshot =
+          await FirebaseFirestore.instance.collection('car').get();
+
+      List<Map<String, dynamic>> cartItems = cartSnapshot.docs
+          .map((doc) => doc.data() as Map<String, dynamic>)
+          .toList();
+
+      return cartItems;
+    } catch (error) {
+      print("Error al obtener la cesta: $error");
+      return [];
+    }
+  }
+
+  Future<void> removeItemFromCart(String productName) async {
+  try {
+    CollectionReference cartCollection = db.collection('car');
+
+    QuerySnapshot querySnapshot = await cartCollection.where('product', isEqualTo: productName).get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      await cartCollection.doc(querySnapshot.docs.first.id).delete();
+    } else {
+      print('Producto no encontrado en el carrito');
+    }
+  } catch (error) {
+    print('Error al eliminar el producto del carrito: $error');
+  }
+}
+
+
 Future<bool> areCredentialsValid(String username, String password) async {
   try {
     QuerySnapshot usersQuery = await usersCollection.get();
@@ -66,6 +100,8 @@ try {
     return [];
   }
 }
+
+
 
 
 }

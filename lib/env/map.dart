@@ -15,10 +15,8 @@ class _MapaState extends State<Mapa> {
   final List<LatLng> polyPoints = [];
   final Set<Polyline> polyLines = {};
   static const LatLng sourceLocation =
-      LatLng(22.13809815759307, -100.91154069356105);
-  static const LatLng destination =
-      LatLng(22.149065850100932, -100.94684916479362);
-
+      LatLng(22.135035, -101.017399);
+      
   double lat = 0.0;
   double lng = 0.0;
 
@@ -39,7 +37,7 @@ class _MapaState extends State<Mapa> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Localiza los puntos de venta'),
+        title: const Text('Mi Tiendita'),
       ),
       body: Column(
         children: [
@@ -51,19 +49,9 @@ class _MapaState extends State<Mapa> {
               myLocationButtonEnabled: true,
               markers: {
                 const Marker(
-                  markerId: MarkerId("Sucursal 1"),
+                  markerId: MarkerId("Mi Tiendita"),
                   position: sourceLocation,
-                  infoWindow: InfoWindow(title: "Santa Anna"),
-                ),
-                Marker(
-                  markerId: MarkerId("Sucursal 2"),
-                  position: destination,
-                  infoWindow: const InfoWindow(title: "Colorines"),
-                  onTap: () {
-                    setState(() {
-                      showAlertDialog(context);
-                    });
-                  },
+                  infoWindow: InfoWindow(title: "La garita"),
                 ),
               },
               initialCameraPosition: CameraPosition(
