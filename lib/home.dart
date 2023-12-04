@@ -40,7 +40,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             const SizedBox(height: 18),
             Image.asset(
-              "/img/login.jpg", // Ajusta la ruta de la imagen según tu proyecto
+              "/img/login.jpg",
               width: 180,
               height: 180,
             ),
@@ -60,13 +60,13 @@ class _HomeViewState extends State<HomeView> {
                     padding: const EdgeInsets.all(16),
                     margin: const EdgeInsets.only(bottom: 16),
                     decoration: BoxDecoration(
-                      color: Colors.grey[200], // Color gris de fondo
+                      color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
                       controller: userController,
                       decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.person), // Ícono para el usuario
+                        prefixIcon: Icon(Icons.person), 
                         hintText: 'Usuario',
                         border: OutlineInputBorder(),
                       ),
@@ -75,7 +75,7 @@ class _HomeViewState extends State<HomeView> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.grey[200], // Color gris de fondo
+                      color: Colors.grey[200], 
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
@@ -83,7 +83,7 @@ class _HomeViewState extends State<HomeView> {
                       obscureText: true,
                       decoration: const InputDecoration(
                         prefixIcon:
-                            Icon(Icons.lock), // Ícono para la contraseña
+                            Icon(Icons.lock),
                         hintText: 'Contraseña',
                         border: OutlineInputBorder(),
                       ),
@@ -128,7 +128,7 @@ class _HomeViewState extends State<HomeView> {
                     .areCredentialsValid(username, password);
 
                 if (credentialsMatch) {
-                  // Usuario y contraseña coinciden
+                 
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -159,7 +159,7 @@ class _HomeViewState extends State<HomeView> {
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
-                        10.0), // Ajusta el radio de los bordes según lo necesario
+                        10.0), 
                   ),
                 ),
                 backgroundColor:
@@ -170,8 +170,8 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   Icon(Icons.login,
                       color: Colors
-                          .white), // Puedes cambiar el icono según tus necesidades
-                  SizedBox(width: 8), // Espacio entre el ícono y el texto
+                          .white), 
+                  SizedBox(width: 8), 
                   Text('Iniciar Sesión', style: TextStyle(color: Colors.white)),
                 ],
               ),

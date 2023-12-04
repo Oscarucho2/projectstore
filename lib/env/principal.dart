@@ -39,7 +39,7 @@ class PrincipalView extends StatelessWidget {
         ],
       ),
       drawer: Drawer(
-        // Contenido del menú lateral
+        
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -48,9 +48,9 @@ class PrincipalView extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     child: Icon(Icons.account_circle,
-                        color: Colors.black), // Ícono de usuario
+                        color: Colors.black),
                   ),
-                  const SizedBox(width: 8), // Espacio entre el ícono y el texto
+                  const SizedBox(width: 8),
                   Text(
                     user,
                     style: const TextStyle(color: Colors.black),
@@ -58,35 +58,35 @@ class PrincipalView extends StatelessWidget {
                 ],
               ),
               accountEmail:
-                  null, // Puedes agregar el correo aquí si es necesario
+                  null,
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.edit), // Ícono de editar perfil
+              leading: const Icon(Icons.edit),
               title: const Text('Editar perfil'),
               onTap: () {
-                // Agrega la lógica para la opción 'Editar perfil'
-                Navigator.pop(context); // Cierra el Drawer
+                
+                Navigator.pop(context); 
               },
             ),
             ListTile(
-              leading: const Icon(Icons.location_on), // Ícono de ubicaciones
+              leading: const Icon(Icons.location_on), 
               title: const Text('Mis ubicaciones'),
               onTap: () {
-                Navigator.pop(context); // Cierra el Drawer
+                Navigator.pop(context); 
 
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          Mapa()), // Reemplaza MapView con el nombre de tu pantalla de mapa
+                          Mapa()), 
                 );
               },
             ),
             ListTile(
-              leading: const Icon(Icons.logout), // Ícono de cerrar sesión
+              leading: const Icon(Icons.logout), 
               title: const Text('Cerrar sesión'),
               onTap: () {
                       Navigator.push(
@@ -95,7 +95,7 @@ class PrincipalView extends StatelessWidget {
             );
               },
             ),
-            // Agrega otras opciones del menú según sea necesario
+            
           ],
         ),
       ),
@@ -103,52 +103,52 @@ class PrincipalView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Título e Imagen centrada
+          
           Column(
             children: [
               const Text(
                 'Bienvenid@',
                 style: TextStyle(
                   fontSize:
-                      30, // Ajusta el tamaño del título según sea necesario
+                      30, 
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 16),
 
-              // Imagen centrada
+              
               Center(
                 child: Image.asset(
-                  "/img/login.jpg", // Ruta de tu imagen de bienvenida
+                  "/img/login.jpg", 
                   width:
-                      180, // Ajusta el ancho de la imagen según sea necesario
+                      180, 
                   height:
-                      180, // Ajusta la altura de la imagen según sea necesario
+                      180,
                 ),
               ),
             ],
           ),
           const SizedBox(height: 32),
 
-          // Texto "Menú"
+          
           const Text(
             'Menú',
             style: TextStyle(
-              fontSize: 20, // Ajusta el tamaño según sea necesario
+              fontSize: 20, 
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
 
-          // Subtexto
+          
           const Text(
             'Selecciona la opción que desees:',
             style:
-                TextStyle(fontSize: 14), // Ajusta el tamaño según sea necesario
+                TextStyle(fontSize: 14), 
           ),
           const SizedBox(height: 16),
 
-          // Botones
+          
           buildMenuButton(context, 'Categorías'),
           const SizedBox(height: 10),
           buildMenuButton(context, 'Mis pedidos'),
@@ -159,7 +159,7 @@ class PrincipalView extends StatelessWidget {
 
   Widget buildMenuButton(BuildContext context, String buttonText) {
     return Container(
-      width: 200, // Ajusta el ancho del botón según sea necesario
+      width: 200,
       child: ElevatedButton(
         onPressed: () {
           if (buttonText == 'Salir') {
@@ -183,11 +183,11 @@ class PrincipalView extends StatelessWidget {
         child: Text(
           buttonText,
           style: const TextStyle(
-              color: Colors.white), // Cambia el color del texto a blanco
+              color: Colors.white),
         ),
         style: ElevatedButton.styleFrom(
           primary: const Color(
-              0xFF5EC401), // Cambia el color de fondo según sea necesario
+              0xFF5EC401), 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),

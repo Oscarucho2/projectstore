@@ -69,7 +69,7 @@ class CategoryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Lógica de navegación cuando se hace clic en la categoría
+        
         Navigator.push(
           context,
           MaterialPageRoute(

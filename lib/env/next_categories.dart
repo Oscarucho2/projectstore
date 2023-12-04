@@ -58,7 +58,7 @@ class NextCategories extends StatelessWidget {
           } else {
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // Dos elementos por fila
+                crossAxisCount: 2, 
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
               ),
@@ -68,7 +68,7 @@ class NextCategories extends StatelessWidget {
 
                 return InkWell(
                   onTap: () {
-                    // Al hacer clic en un producto, navega a la vista de detalles
+                    
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -84,8 +84,8 @@ class NextCategories extends StatelessWidget {
                         Image.network(
                           product['imagen'] ?? '',
                           height:
-                              130, // Ajusta la altura de la imagen según sea necesario
-                          width: 150, // O ajusta el ancho según tus necesidades
+                              130, 
+                          width: 150, 
                           fit: BoxFit.cover,
                         ),
                         Padding(
@@ -102,8 +102,8 @@ class NextCategories extends StatelessWidget {
                         const SizedBox(height: 8),
                         ElevatedButton.icon(
                           onPressed: () {
-                            // Agrega la lógica para añadir a la cesta
-                            // Puedes utilizar un método o función para manejar esto
+                            
+                            
                           },
                           icon: const Icon(Icons.shopping_cart, color: Colors.white,),
                           label: const Text(

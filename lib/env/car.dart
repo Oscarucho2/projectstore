@@ -46,12 +46,12 @@ class CarView extends StatelessWidget {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 final cartItem = snapshot.data![index];
-                // Construye un widget de tarjeta para cada producto en la cesta
+                
                 return Card(
                   child: ListTile(
                     title: Text(cartItem['product'] ?? ''),
                     subtitle: Text('Precio: \$${cartItem['price']}'),
-                    // Otros detalles del producto en la cesta
+                    
                   ),
                 );
               },

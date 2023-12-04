@@ -22,22 +22,22 @@ class _RegisterViewState extends State<RegisterView> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Título
+        
           const Text(
             'Regístrate',
             style: TextStyle(
-              fontSize: 24, // Ajusta el tamaño del título según sea necesario
+              fontSize: 24, 
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 16),
 
-          // Imagen centrada
+          
           Center(
             child: Image.asset(
-              "/img/login.jpg", // Ruta de tu imagen de registro
-              width: 180, // Ajusta el ancho de la imagen según sea necesario
-              height: 180, // Ajusta la altura de la imagen según sea necesario
+              "/img/login.jpg", 
+              width: 180, 
+              height: 180,
             ),
           ),
           const Text(
@@ -49,7 +49,7 @@ class _RegisterViewState extends State<RegisterView> {
           ),
           const SizedBox(height: 32),
 
-          // Inputs de registro
+          
           buildInputWithIcon(
               Icons.email, 'Correo Electrónico', emailController),
           const SizedBox(height: 16),
@@ -66,7 +66,7 @@ class _RegisterViewState extends State<RegisterView> {
               const Text("¿Ya tienes cuenta? "),
               InkWell(
                 onTap: () {
-                  // Navega a la pantalla de inicio de sesión cuando se presiona el enlace
+                  
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const HomeView()),
@@ -82,16 +82,16 @@ class _RegisterViewState extends State<RegisterView> {
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              // Obtener los valores de los campos de texto
+              
               String email = emailController.text;
               String username = usernameController.text;
               String password = passwordController.text;
 
-              // Verificar que los campos no estén vacíos antes de enviar a la base de datos
+              
               if (email.isNotEmpty &&
                   username.isNotEmpty &&
                   password.isNotEmpty) {
-                // Llamar a la función para registrar al usuario en la base de datos
+                
                 FirebaseService().registerUser(email, username, password);
 
                 Navigator.push(
@@ -99,8 +99,8 @@ class _RegisterViewState extends State<RegisterView> {
                   MaterialPageRoute(builder: (context) => const HomeView()),
                 );
               } else {
-                // Manejar el caso en que algún campo esté vacío
-                // Puedes mostrar un mensaje de error o realizar otras acciones
+                
+                
               }
             },
             style: ButtonStyle(
@@ -130,7 +130,7 @@ class _RegisterViewState extends State<RegisterView> {
   Widget buildInputWithIcon(
       IconData icon, String hintText, TextEditingController controller) {
     return Container(
-      width: 300, // Ajusta el ancho del contenedor según sea necesario
+      width: 300, 
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
