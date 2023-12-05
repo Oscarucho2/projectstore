@@ -111,7 +111,7 @@ class CategoryButton extends StatelessWidget {
         );
       },
       child: Card(
-        color: Colors.white,
+        color: const Color(0xFFFFFFFF),
         elevation: 4.0,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

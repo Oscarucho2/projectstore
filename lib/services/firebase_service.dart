@@ -47,7 +47,7 @@ class FirebaseService {
       }
     } catch (error) {
       print('Error al eliminar el producto del carrito: $error');
-      return false; // Agregado: asegúrate de devolver un valor en caso de error
+      return false;
     }
   }
 
@@ -75,15 +75,13 @@ class FirebaseService {
       // Obtén la referencia a la colección principal
       CollectionReference productsCollection = db.collection('products');
 
-      // Obtén los productos de 'producto1' de la categoría específica
       CollectionReference subcollectionReference1 =
           productsCollection.doc(categoria).collection('producto1');
       QuerySnapshot productsQuery1 = await subcollectionReference1.get();
       List<Map<String, dynamic>> productos1 = productsQuery1.docs
           .map((productDoc) => productDoc.data() as Map<String, dynamic>)
           .toList();
-
-      // Obtén los productos de 'producto2' de la categoría específica
+          
       CollectionReference subcollectionReference2 =
           productsCollection.doc(categoria).collection('producto2');
       QuerySnapshot productsQuery2 = await subcollectionReference2.get();
